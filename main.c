@@ -17,5 +17,12 @@ int main()
 
 	printf("%s", art);
 
+	int fd;
+	char buf[32];
+	char **line;
+
+	fd = open("./texts/game.txt", O_RDONLY);
+	get_next_line(fd, line);
+
 	return 0;
 }
