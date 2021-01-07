@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 02:55:03 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/06 05:41:25 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/07 05:06:01 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@
 # include <unistd.h>
 # include <stdlib.h>
 
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+
 int get_next_line(int fd, char **line);
+
+void	*ft_memcpy_bd(void *dest, const void *src, size_t n, int dir);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+void	*ft_memset(void *s, int c, size_t n);
+void	ft_bzero(void *s, size_t n);
+void	*ft_calloc(size_t nmemb, size_t size);
 
 #endif
