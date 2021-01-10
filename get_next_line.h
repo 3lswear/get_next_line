@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 02:55:03 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/07 05:06:01 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/10 03:55:00 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
+size_t	ft_strlen(const char *str);
+void *ft_reallocarray(void *ptr, size_t nmemb, size_t size);
 
 #endif
