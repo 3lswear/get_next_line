@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 04:53:33 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/07 05:04:24 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/10 04:00:10 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,43 @@ void	ft_bzero(void *s, size_t n)
 	return (void)ft_memset(s, 0, n);
 }
 
+size_t	ft_strlen(const char *str)
+{
+	size_t count;
+
+	count = 0;
+	while (*str != '\0')
+	{
+		str++;
+		count++;
+	}
+	return (count);
+}
+
 void	*ft_calloc(size_t nmemb, size_t size)
 {
 	size_t	total;
 	void	*result;
 
+	if ((nmemb) && ((18446744073709551615UL / nmemb) < size))
+		return (NULL);
 	total = nmemb * size;
 	result = malloc(total);
 	if (result)
 		ft_bzero(result, total);
 	return (result);
+}
+
+void *ft_reallocarray(void *ptr, size_t nmemb, size_t size)
+{
+	void *result;
+
+	if (!(result = ft_calloc(nmemb, size)))
+		return (NULL);
+	else
+	{
+		ft_memcpy(result, ptr, ft_strlen(ptr));
+		free(ptr);
+		return (result);
+	}
 }
