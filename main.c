@@ -18,11 +18,12 @@ int main()
 	printf("%s", art);
 
 	int fd;
-	char buf[32];
-	char **line;
+	char *line;
+	line = (char *)ft_calloc(sizeof(char), 1);
 
 	fd = open("./texts/game.txt", O_RDONLY);
-	get_next_line(fd, line);
+	get_next_line(fd, &line);
+	printf("the line is =>[%s]\n", line);
 
 	return 0;
 }
