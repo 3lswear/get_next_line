@@ -6,7 +6,7 @@
 #    By: sunderle <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/09 20:03:30 by sunderle          #+#    #+#              #
-#    Updated: 2021/01/06 05:41:01 by sunderle         ###   ########.fr        #
+#    Updated: 2021/01/09 00:17:44 by sunderle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,9 @@ NAME = gnltest
 CC = clang
 
 CFLAGS = -Wall -Wextra -Werror
+CFLAGS += -g
+LDFLAGS += -g
+
 
 SRC = $(wildcard *.c)
 	  # main.c\
