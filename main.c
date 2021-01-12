@@ -1,6 +1,31 @@
 #include <stdio.h>
 
 #include "get_next_line.h"
+void read1(int fd)
+{
+	int ret;
+	char buf[33];
+	buf[32] = 0;
+	while ((ret = read(fd, buf, 32)))
+	{
+		printf("%s", buf);
+		break;
+	}
+	printf("\n");
+}
+
+void read2(int fd)
+{
+	int ret;
+	char buf[33];
+	buf[32] = 0;
+	while ((ret = read(fd, buf, 32)))
+	{
+		printf("%s", buf);
+		break;
+	}
+	printf("\n");
+}
 
 int main()
 {
@@ -24,6 +49,9 @@ int main()
 	fd = open("./texts/game.txt", O_RDONLY);
 	get_next_line(fd, &line);
 	printf("the line is =>[%s]\n", line);
+	get_next_line(fd, &line);
+	printf("the line is =>[%s]\n", line);
+	close(fd);
 
 	return 0;
 }
