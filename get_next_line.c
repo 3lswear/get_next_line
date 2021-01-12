@@ -46,16 +46,23 @@ int	get_next_line(int fd, char **line)
 			if ((pos % BUFFER_SIZE) == 0)
 				break;
 		}
-		if (buf[pos % BUFFER_SIZE] == '\n')
+		if (buf[pos % BUFFER_SIZE] == '\n') //found newline
 		{
-			ft_memcpy(&(*line)[ft_strlen(*line)], buf, pos % BUFFER_SIZE);
+			if ((pos / BUFFER_SIZE) - 1 == (linebreak / BUFFER_SIZE)) //last break in this buffer
+				ft_memcpy(&(*line)[ft_strlen(*line)], &(buf[linebreak % BUFFER_SIZE]), pos % BUFFER_SIZE);
+			else
+				ft_memcpy(&(*line)[ft_strlen(*line)], buf, pos % BUFFER_SIZE);
 			linebreak = pos;
 			break;
 		}
-		else
-		{
-			ft_memcpy(*line, buf, BUFFER_SIZE);
-		}
+		else //reached end of the buffer, no newline
+			if ((pos / BUFFER_SIZE) - 1 == (linebreak / BUFFER_SIZE)) //last break in this buffer
+				ft_memcpy(&(*line)[ft_strlen(*line)],
+						&(buf[(linebreak) % BUFFER_SIZE]),
+						BUFFER_SIZE - ((linebreak) % BUFFER_SIZE));
+			else
+				ft_memcpy(&(*line)[ft_strlen(*line)], buf, BUFFER_SIZE);
+
 	}
 
 	/* *line = (char *)ft_calloc(sizeof(char), pos + 1); */
