@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 02:55:03 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/10 03:55:00 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/12 17:27:05 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <stdlib.h>
 
 # include <fcntl.h>
-# include <sys/types.h>
-# include <sys/stat.h>
+/* # include <sys/types.h> */
+/* # include <sys/stat.h> */
 
 int get_next_line(int fd, char **line);
 
