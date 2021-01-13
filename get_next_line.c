@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 05:37:12 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/12 18:04:07 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/13 13:59:42 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
@@ -23,24 +23,20 @@ int	get_next_line(int fd, char **line)
 
 	*line = (char *)ft_calloc(sizeof(char), BUFFER_SIZE + 1);
 	if (!linebreak)
-	{
 		ft_bzero(buf, BUFFER_SIZE);
-		pos = linebreak;
-	}
-	else
-		pos = linebreak;
+	pos = linebreak;
 	while (1)
 	{
 		if ((pos % BUFFER_SIZE) == 0)
 		//if reached end of buffer, get a new one
 		{
 			if (!(ret = read(fd, buf, BUFFER_SIZE)))
-				break;
+				return (0);
 		}
-		printf("\033[0;31m%2lu:[%s]\n\033[0m", pos / BUFFER_SIZE, buf);
+		/* printf("\033[0;31m%2lu:[%s]\n\033[0m", pos / BUFFER_SIZE, buf); */
 		while (buf[pos % BUFFER_SIZE] != '\n')
 		{
-			*line = ft_reallocarray(*line, sizeof(char), pos + 1 - linebreak);
+			*line = ft_reallocarray(*line, sizeof(char), pos + 2 - linebreak);
 			pos++;
 			if ((pos % BUFFER_SIZE) == 0)
 				break;
@@ -63,7 +59,6 @@ int	get_next_line(int fd, char **line)
 						BUFFER_SIZE - ((linebreak) % BUFFER_SIZE));
 			else
 				ft_memcpy(&(*line)[ft_strlen(*line)], buf, BUFFER_SIZE);
-
 	}
 
 	return (1);
