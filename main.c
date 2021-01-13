@@ -46,23 +46,12 @@ int main()
 	char *line;
 	line = (char *)ft_calloc(sizeof(char), 1);
 
-	fd = open("./texts/game.txt", O_RDONLY);
-	/* fd = open("./texts/among.txt", O_RDONLY); */
-
-	get_next_line(fd, &line);
-	printf("the line is =>[%s]\n", line);
-
-	get_next_line(fd, &line);
-	printf("the line is =>[%s]\n", line);
-
-	get_next_line(fd, &line);
-	printf("the line is =>[%s]\n", line);
-
-	get_next_line(fd, &line);
-	printf("the line is =>[%s]\n", line);
-
-	get_next_line(fd, &line);
-	printf("the line is =>[%s]\n", line);
+	/* fd = open("./texts/game.txt", O_RDONLY); */
+	fd = open("./texts/among.txt", O_RDONLY);
+	while (get_next_line(fd, &line))
+	{
+		printf("the line is =>[%s]\n", line);
+	}
 
 	close(fd);
 
