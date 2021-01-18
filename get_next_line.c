@@ -6,17 +6,49 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 05:37:12 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/13 13:59:42 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/18 06:34:57 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
 #include "get_next_line.h"
 
+ssize_t get_a_buf(int fd, char *buf)
+{
+	ssize_t ret;
+
+	return ((ret = read(fd, buf, BUFFER_SIZE)));
+}
+
+void eob_no_newline(size_t pos, size_t linebreak, char *buf, char **line)
+//reached end of the buffer, no newline
+{
+	if (((pos - 1) / BUFFER_SIZE) == (linebreak / BUFFER_SIZE)) //check if last newline in this buffer
+		ft_memcpy(&(*line)[ft_strlen(*line)],
+				&(buf[(linebreak) % BUFFER_SIZE]),
+				BUFFER_SIZE - ((linebreak) % BUFFER_SIZE));
+	else
+		ft_memcpy(&(*line)[ft_strlen(*line)], buf, BUFFER_SIZE);
+	return;
+}
+
+size_t copy_line(size_t pos, size_t linebreak, char *buf, char **line)
+//found newline & we're not in the start of buf
+{
+	if (((pos - 1) / BUFFER_SIZE) == (linebreak / BUFFER_SIZE)) //check if last newline in this buffer
+		ft_memcpy(&(*line)[ft_strlen(*line)],
+				&(buf[(linebreak) % BUFFER_SIZE]),
+				(pos - linebreak));
+	else
+		ft_memcpy(&(*line)[ft_strlen(*line)], buf, pos % BUFFER_SIZE);
+	linebreak = pos + 1;
+	return (linebreak);
+}
+
 int	get_next_line(int fd, char **line)
 {
 	size_t pos; //position where we are seeking in fd
 	static size_t linebreak; //previous line break position + 1
-	char buf[BUFFER_SIZE + 1];
+	static char buf[BUFFER_SIZE + 1];
 	ssize_t ret;
 
 	/* buf = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char)); */
@@ -25,40 +57,36 @@ int	get_next_line(int fd, char **line)
 	if (!linebreak)
 		ft_bzero(buf, BUFFER_SIZE);
 	pos = linebreak;
+	if ((pos % BUFFER_SIZE) == 0)
+	{
+		ret = read(fd, buf, BUFFER_SIZE);
+		if ((ret == 0) || (ret == -1))
+			return (ret);
+		/* printf("\033[0;31m%2lu:[%s]\n\033[0m", pos / BUFFER_SIZE, buf); */
+	}
+	/* while (buf[pos % BUFFER_SIZE] != '\n') */
 	while (1)
 	{
-		if ((pos % BUFFER_SIZE) == 0)
-		//if reached end of buffer, get a new one
+		*line = ft_reallocarray(*line, sizeof(char), pos + 2 - linebreak);
+		if (buf[pos % BUFFER_SIZE] == '\n')
 		{
-			if (!(ret = read(fd, buf, BUFFER_SIZE)))
-				return (0);
+			linebreak = copy_line(pos, linebreak, buf, line);
+			return (1);
 		}
-		/* printf("\033[0;31m%2lu:[%s]\n\033[0m", pos / BUFFER_SIZE, buf); */
-		while (buf[pos % BUFFER_SIZE] != '\n')
+		else
 		{
-			*line = ft_reallocarray(*line, sizeof(char), pos + 2 - linebreak);
 			pos++;
-			if ((pos % BUFFER_SIZE) == 0)
-				break;
+			if ((pos % BUFFER_SIZE) == 0) //reached end of buffer, no newline
+			{
+				eob_no_newline(pos, linebreak, buf, line);
+				ret = read(fd, buf, BUFFER_SIZE);
+				/* get_a_buf(ret, &(buf[0])); */
+				if ((ret == 0) || (ret == -1))
+					return (ret);
+				/* printf("\033[0;31m%2lu:[%s]\n\033[0m", pos / BUFFER_SIZE, buf); */
+
+			}
 		}
-		if ((pos % BUFFER_SIZE) && (buf[pos % BUFFER_SIZE] == '\n')) //found newline
-		{
-			if (((pos - 1) / BUFFER_SIZE) == (linebreak / BUFFER_SIZE)) //check if last newline in this buffer
-				ft_memcpy(&(*line)[ft_strlen(*line)],
-						&(buf[(linebreak) % BUFFER_SIZE]),
-						(pos - linebreak));
-			else
-				ft_memcpy(&(*line)[ft_strlen(*line)], buf, pos % BUFFER_SIZE);
-			linebreak = pos + 1;
-			break;
-		}
-		else //reached end of the buffer, no newline
-			if (((pos - 1) / BUFFER_SIZE) == (linebreak / BUFFER_SIZE)) //check if last newline in this buffer
-				ft_memcpy(&(*line)[ft_strlen(*line)],
-						&(buf[(linebreak) % BUFFER_SIZE]),
-						BUFFER_SIZE - ((linebreak) % BUFFER_SIZE));
-			else
-				ft_memcpy(&(*line)[ft_strlen(*line)], buf, BUFFER_SIZE);
 	}
 
 	return (1);
