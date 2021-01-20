@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 05:37:12 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/20 12:35:25 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/20 14:08:00 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
@@ -22,7 +22,9 @@ ssize_t get_a_buf(int fd, char **buf)
 void eob_no_newline(size_t pos, size_t linebreak, char *buf, char **line)
 //reached end of the buffer, no newline
 {
-	if (((pos - 1) / BUFFER_SIZE) == (linebreak / BUFFER_SIZE)) //check if last newline in this buffer
+	/* if (((pos - 1) / BUFFER_SIZE) == (linebreak / BUFFER_SIZE)) //check if last newline in this buffer */
+	(void)pos;
+	if (ft_strchr_bd(buf, '\n', 0))
 		ft_memcpy(&(*line)[ft_strlen(*line)],
 				&(buf[(linebreak) % BUFFER_SIZE]),
 				BUFFER_SIZE - ((linebreak) % BUFFER_SIZE));
@@ -65,7 +67,7 @@ int	get_next_line(int fd, char **line)
 	}
 	while (1)
 	{
-		if (pos - linebreak > BUFFER_SIZE)
+		if (pos - linebreak >= BUFFER_SIZE)
 			*line = ft_reallocarray(*line, sizeof(char), pos + 2 - linebreak);
 		if (buf[pos % BUFFER_SIZE] == '\n')
 		{
