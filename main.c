@@ -19,17 +19,19 @@ int main()
 
 	int fd;
 	char *line;
+	int ret;
 	/* line = (char *)ft_calloc(sizeof(char), 1); */
 
-	fd = open("./texts/game.txt", O_RDONLY);
-	/* fd = open("./texts/among.txt", O_RDONLY); */
+	/* fd = open("./texts/game.txt", O_RDONLY); */
+	fd = open("./texts/among.txt", O_RDONLY);
 	/* fd = 1; */
-	while (get_next_line(fd, &line))
+	while ((ret = get_next_line(fd, &line)) == 1)
 	{
 		printf("the line is =>[%s]\n", line);
 		/* printf("%s\n", line); */
 		free(line);
 	}
+	printf("gnl returned -> [%d]\n", ret);
 	free(line);
 
 	close(fd);
