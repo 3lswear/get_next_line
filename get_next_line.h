@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 02:55:03 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/20 02:58:22 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/20 12:41:41 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-/* #  define BUFFER_SIZE 99999 */
-#  define BUFFER_SIZE 32
+#  define BUFFER_SIZE 99999
+/* #  define BUFFER_SIZE 32 */
 # endif
 
 # include <unistd.h>
@@ -34,5 +34,6 @@ void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
 size_t	ft_strlen(const char *str);
 void *ft_reallocarray(void *ptr, size_t nmemb, size_t size);
+char	*ft_strchr_bd(const char *s, int c, int dir);
 
 #endif
