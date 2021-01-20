@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 04:53:33 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/10 04:00:10 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/20 12:07:25 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,22 @@ void *ft_reallocarray(void *ptr, size_t nmemb, size_t size)
 		free(ptr);
 		return (result);
 	}
+}
+
+char	*ft_strchr_bd(const char *s, int c, int dir)
+{
+	char	*retval;
+	size_t	i;
+
+	retval = NULL;
+	i = 0;
+	while (i <= ft_strlen(s))
+	{
+		if ((unsigned char)c == s[i])
+			retval = (char *)&s[i];
+		if ((dir == 0) && (retval))
+			return (retval);
+		i++;
+	}
+	return (retval);
 }
