@@ -6,17 +6,17 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 05:37:12 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/18 06:34:57 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/20 03:34:53 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
 #include "get_next_line.h"
 
-ssize_t get_a_buf(int fd, char *buf)
+ssize_t get_a_buf(int fd, char **buf)
 {
 	ssize_t ret;
 
-	return ((ret = read(fd, buf, BUFFER_SIZE)));
+	return ((ret = read(fd, *buf, BUFFER_SIZE)));
 }
 
 void eob_no_newline(size_t pos, size_t linebreak, char *buf, char **line)
@@ -51,8 +51,6 @@ int	get_next_line(int fd, char **line)
 	static char buf[BUFFER_SIZE + 1];
 	ssize_t ret;
 
-	/* buf = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char)); */
-
 	*line = (char *)ft_calloc(sizeof(char), BUFFER_SIZE + 1);
 	if (!linebreak)
 		ft_bzero(buf, BUFFER_SIZE);
@@ -60,17 +58,21 @@ int	get_next_line(int fd, char **line)
 	if ((pos % BUFFER_SIZE) == 0)
 	{
 		ret = read(fd, buf, BUFFER_SIZE);
+		/* ret = get_a_buf(fd, (char **)(&buf)); */
 		if ((ret == 0) || (ret == -1))
 			return (ret);
-		/* printf("\033[0;31m%2lu:[%s]\n\033[0m", pos / BUFFER_SIZE, buf); */
+		printf("\033[0;31m%2lu:[%s]:%lu\n\033[0m", pos / BUFFER_SIZE, buf, ft_strlen(buf));
 	}
-	/* while (buf[pos % BUFFER_SIZE] != '\n') */
 	while (1)
 	{
-		*line = ft_reallocarray(*line, sizeof(char), pos + 2 - linebreak);
+		if (pos - linebreak > BUFFER_SIZE)
+			*line = ft_reallocarray(*line, sizeof(char), pos + 2 - linebreak);
 		if (buf[pos % BUFFER_SIZE] == '\n')
 		{
 			linebreak = copy_line(pos, linebreak, buf, line);
+			if (!buf[(pos % BUFFER_SIZE) + 1]) //if no more lines in buf, reset linebreak
+				/* linebreak = BUFFER_SIZE * (pos / BUFFER_SIZE); */
+				linebreak = 0;
 			return (1);
 		}
 		else
@@ -83,7 +85,7 @@ int	get_next_line(int fd, char **line)
 				/* get_a_buf(ret, &(buf[0])); */
 				if ((ret == 0) || (ret == -1))
 					return (ret);
-				/* printf("\033[0;31m%2lu:[%s]\n\033[0m", pos / BUFFER_SIZE, buf); */
+				printf("\033[0;31m%2lu:[%s]:%lu\n\033[0m", pos / BUFFER_SIZE, buf, ft_strlen(buf));
 
 			}
 		}
