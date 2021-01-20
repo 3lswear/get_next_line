@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 05:37:12 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/20 03:34:53 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/20 12:35:25 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
@@ -34,7 +34,7 @@ void eob_no_newline(size_t pos, size_t linebreak, char *buf, char **line)
 size_t copy_line(size_t pos, size_t linebreak, char *buf, char **line)
 //found newline & we're not in the start of buf
 {
-	if (((pos - 1) / BUFFER_SIZE) == (linebreak / BUFFER_SIZE)) //check if last newline in this buffer
+	if (((pos) / BUFFER_SIZE) == (linebreak / BUFFER_SIZE)) //check if last newline in this buffer
 		ft_memcpy(&(*line)[ft_strlen(*line)],
 				&(buf[(linebreak) % BUFFER_SIZE]),
 				(pos - linebreak));
@@ -61,7 +61,7 @@ int	get_next_line(int fd, char **line)
 		/* ret = get_a_buf(fd, (char **)(&buf)); */
 		if ((ret == 0) || (ret == -1))
 			return (ret);
-		printf("\033[0;31m%2lu:[%s]:%lu\n\033[0m", pos / BUFFER_SIZE, buf, ft_strlen(buf));
+		/* printf("\033[0;31m%2lu:[%s]:%lu\n\033[0m", pos / BUFFER_SIZE, buf, ft_strlen(buf)); */
 	}
 	while (1)
 	{
@@ -70,7 +70,8 @@ int	get_next_line(int fd, char **line)
 		if (buf[pos % BUFFER_SIZE] == '\n')
 		{
 			linebreak = copy_line(pos, linebreak, buf, line);
-			if (!buf[(pos % BUFFER_SIZE) + 1]) //if no more lines in buf, reset linebreak
+			/* if (!buf[(pos % BUFFER_SIZE) + 1]) //if no more lines in buf, reset linebreak */
+			if (!ft_strchr_bd(&(buf[linebreak % BUFFER_SIZE]), '\n', 0) && (ret < BUFFER_SIZE))
 				/* linebreak = BUFFER_SIZE * (pos / BUFFER_SIZE); */
 				linebreak = 0;
 			return (1);
@@ -85,7 +86,7 @@ int	get_next_line(int fd, char **line)
 				/* get_a_buf(ret, &(buf[0])); */
 				if ((ret == 0) || (ret == -1))
 					return (ret);
-				printf("\033[0;31m%2lu:[%s]:%lu\n\033[0m", pos / BUFFER_SIZE, buf, ft_strlen(buf));
+				/* printf("\033[0;31m%2lu:[%s]:%lu\n\033[0m", pos / BUFFER_SIZE, buf, ft_strlen(buf)); */
 
 			}
 		}
