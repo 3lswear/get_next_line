@@ -6,13 +6,13 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 04:53:33 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/20 12:07:25 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/20 14:37:05 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*ft_memset(void *s, int c, size_t n)
+void	ft_bzero(void *s, size_t n)
 {
 	char *dest;
 
@@ -20,13 +20,12 @@ void	*ft_memset(void *s, int c, size_t n)
 		dest = s;
 	while (n > 0)
 	{
-		*dest++ = c;
+		*dest++ = 0;
 		n--;
 	}
-	return (s);
 }
 
-void	*ft_memcpy_bd(void *dest, const void *src, size_t n, int dir)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	char *d;
 	char *s;
@@ -35,33 +34,12 @@ void	*ft_memcpy_bd(void *dest, const void *src, size_t n, int dir)
 	s = (char *)src;
 	if (dest == src)
 		return (dest);
-	if (!dir)
+	while (n)
 	{
-		while (n)
-		{
-			*d++ = *s++;
-			n--;
-		}
-	}
-	else if (dir == 1)
-	{
-		while (n)
-		{
-			n--;
-			d[n] = s[n];
-		}
+		*d++ = *s++;
+		n--;
 	}
 	return (dest);
-}
-
-void	*ft_memcpy(void *dest, const void *src, size_t n)
-{
-	return (ft_memcpy_bd(dest, src, n, 0));
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	return (void)ft_memset(s, 0, n);
 }
 
 size_t	ft_strlen(const char *str)
