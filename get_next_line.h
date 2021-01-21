@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 02:55:03 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/21 14:36:41 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/21 23:57:54 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 # define GET_NEXT_LINE_H
 
-/* # ifndef BUFFER_SIZE */
-/* /1* #  define BUFFER_SIZE 1 *1/ */
-/* /1* #  define BUFFER_SIZE 32 *1/ */
-/* #  define BUFFER_SIZE 999 */
-/* /1* #  define BUFFER_SIZE 99999 *1/ */
-/* /1* #  define BUFFER_SIZE 10000000 *1/ */
-/* # endif */
+# ifndef BUFFER_SIZE
+/* #  define BUFFER_SIZE 1 */
+#  define BUFFER_SIZE 32
+/* #  define BUFFER_SIZE 1024 */
+/* #  define BUFFER_SIZE 99999 */
+/* #  define BUFFER_SIZE 10000000 */
+# endif
 
 # include <unistd.h>
 # include <stdlib.h>
