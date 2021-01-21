@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 05:37:12 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/21 04:59:07 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/21 05:20:51 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
@@ -40,39 +40,41 @@ ssize_t check(char *substring, char **line)
 
 int	get_next_line(int fd, char **line)
 {
-	char buf[BUFFER_SIZE + 1];
-	static char *substring;
+	/* char buf[BUFFER_SIZE + 1]; */
+	/* static char *substring; */
+	static char substring[BUFFER_SIZE + 1];
 	ssize_t ret;
 	ssize_t rp;
 	char *point;
 	char *tmp;
 
-	ft_bzero(buf, BUFFER_SIZE + 1);
 	if (!line)
 		return (-1);
-	if ((rp = check(substring, line)) == -1)
+	if ((rp = check(&(substring[ft_strlen(substring) + 1]), line)) == -1)
 		return (-1);
-	while (rp == 0 && (ret = read(fd, buf, BUFFER_SIZE)))
+	while (rp == 0 && (ret = read(fd, substring, BUFFER_SIZE)))
 	{
-		buf[ret] = 0;
-		if ((point = ft_strchr_bd(buf, '\n', 0)))
+		substring[ret] = 0;
+		if ((point = ft_strchr_bd(substring, '\n', 0)))
 		{
 			*point++ = 0;
-			free(substring);
-			if (!(substring = ft_strdup(point)))
-				return (-1);
+			/* free(substring); */
+			/* if (!(substring = ft_strdup(point))) */
+			/* 	return (-1); */
 			rp = 1;
 		}
 		tmp = *line;
-		if (!(*line = ft_strjoin(*line, buf)))
+		if (!(*line = ft_strjoin(*line, substring)))
 			return (-1);
 		free(tmp);
 	}
 	if (rp == 0 && ret == 0)
 	{
-		free(substring);
+		/* free(substring); */
 		return (0);
 	}
 	else
+	{
 		return (1);
+	}
 }
