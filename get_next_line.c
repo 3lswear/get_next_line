@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 05:37:12 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/21 04:25:27 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/21 04:59:07 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
@@ -18,25 +18,24 @@ ssize_t check(char *substring, char **line)
 
 	if (substring)
 	{
-		if ((point = ft_strchr_bd(substring, '\n', 0)))
+		if ((point = ft_strchr_bd(substring, '\n', 0))) //found a newline
 		{
-			*point = 0;
+			*point++ = 0;
 			if (!(*line = ft_strdup(substring)))
 				return (-1);
-			point++;
-			ft_strlcpy(substring, point, ft_strlen(substring) + ft_strlen(point) + 1);
-			return (1);
+			ft_strlcpy(substring, point, ft_strlen(point) + 1);
+			return (1); //copied a line to *line
 		}
-		else
+		else //no newline in substring
 		{
 			if (!(*line = ft_strdup(substring)))
 				return (-1);
-			ft_bzero(substring, sizeof(substring));
+			ft_bzero(substring, ft_strlen(substring) + 1);
 		}
 	}
 	else
 		*line = ft_calloc(sizeof(char), 1);
-	return (0);
+	return (0); // no newline in substring, or no substring at all
 }
 
 int	get_next_line(int fd, char **line)
@@ -59,6 +58,7 @@ int	get_next_line(int fd, char **line)
 		if ((point = ft_strchr_bd(buf, '\n', 0)))
 		{
 			*point++ = 0;
+			free(substring);
 			if (!(substring = ft_strdup(point)))
 				return (-1);
 			rp = 1;
