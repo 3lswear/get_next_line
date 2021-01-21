@@ -6,13 +6,13 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 05:37:12 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/21 00:48:35 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/21 04:25:27 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
 #include "get_next_line.h"
 
-int check(char *substring, char **line)
+ssize_t check(char *substring, char **line)
 {
 	char *point;
 
@@ -44,7 +44,7 @@ int	get_next_line(int fd, char **line)
 	char buf[BUFFER_SIZE + 1];
 	static char *substring;
 	ssize_t ret;
-	int rp;
+	ssize_t rp;
 	char *point;
 	char *tmp;
 
@@ -69,7 +69,10 @@ int	get_next_line(int fd, char **line)
 		free(tmp);
 	}
 	if (rp == 0 && ret == 0)
+	{
+		free(substring);
 		return (0);
+	}
 	else
 		return (1);
 }
