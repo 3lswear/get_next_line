@@ -6,13 +6,39 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 05:37:12 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/22 21:23:40 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/22 21:53:14 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+
 #include "get_next_line.h"
 
-int	check_buf(char *substring, char **line)
+void	ft_bzero(void *s, size_t n)
+{
+	char *dest;
+
+	if (n)
+		dest = s;
+	while (n > 0)
+	{
+		*dest++ = 0;
+		n--;
+	}
+}
+
+size_t	ft_strlen(const char *str)
+{
+	size_t count;
+
+	count = 0;
+	while (*str != '\0')
+	{
+		str++;
+		count++;
+	}
+	return (count);
+}
+
+int		check_buf(char *substring, char **line)
 {
 	char *point;
 
@@ -34,11 +60,11 @@ int	check_buf(char *substring, char **line)
 	}
 }
 
-int copy_line(char *substring, char **line)
+int		copy_line(char *substring, char **line)
 {
-	char *point;
-	char *tmp;
-	int res;
+	char	*point;
+	char	*tmp;
+	int		res;
 
 	res = 0;
 	if ((point = ft_strchr_bd(substring, '\n', 0))) //found a newline
@@ -53,13 +79,11 @@ int copy_line(char *substring, char **line)
 	return (res);
 }
 
-int	get_next_line(int fd, char **line)
+int		get_next_line(int fd, char **line)
 {
 	static char	substring[BUFFER_SIZE + 1];
 	ssize_t		ret;
 	int			res;
-	/* char		*point; */
-	/* char		*tmp; */
 
 	ret = 0;
 	if (!line || (BUFFER_SIZE <= 0) || (res = check_buf(&(substring
