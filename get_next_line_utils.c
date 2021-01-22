@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 04:53:33 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/22 01:46:44 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/22 21:46:06 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,26 +105,11 @@ char	*ft_strdup(const char *src)
 	return (dest);
 }
 
-size_t	ft_strlcat(char *dest, const char *src, size_t size)
-{
-	size_t	i;
-	size_t	result;
-
-	i = ft_strlen(dest);
-	if (ft_strlen(dest) < size)
-		result = i + ft_strlen(src);
-	else
-		result = size + ft_strlen(src);
-	while ((i < size - 1) && (*src) && (size > 0))
-		dest[i++] = *(src++);
-	dest[i] = 0;
-	return (result);
-}
-
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	len;
 	char	*result;
+	size_t	i;
 
 	if (!s1 || !s2)
 		return (NULL);
@@ -133,7 +118,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (result)
 	{
 		ft_strlcpy(result, (char *)s1, ft_strlen(s1) + 1);
-		ft_strlcat(result, (char *)s2, len + 1);
+		i = ft_strlen(result);
+		while ((i < (len + 1) - 1) && (*s2) && ((len + 1) > 0))
+			result[i++] = *(s2++);
+		result[i] = 0;
 	}
 	return (result);
 }
