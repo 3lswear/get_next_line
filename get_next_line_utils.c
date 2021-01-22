@@ -6,37 +6,11 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 04:53:33 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/22 21:50:38 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/22 21:51:44 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-void	ft_bzero(void *s, size_t n)
-{
-	char *dest;
-
-	if (n)
-		dest = s;
-	while (n > 0)
-	{
-		*dest++ = 0;
-		n--;
-	}
-}
-
-size_t	ft_strlen(const char *str)
-{
-	size_t count;
-
-	count = 0;
-	while (*str != '\0')
-	{
-		str++;
-		count++;
-	}
-	return (count);
-}
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
@@ -56,7 +30,7 @@ char	*ft_strchr_bd(const char *s, int c, int dir)
 {
 	char	*retval;
 	size_t	i;
-	size_t len;
+	size_t	len;
 
 	retval = NULL;
 	i = 0;
