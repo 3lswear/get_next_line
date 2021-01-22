@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 04:53:33 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/22 21:46:06 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/22 21:50:38 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,15 +124,4 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		result[i] = 0;
 	}
 	return (result);
-}
-
-void	*ft_memchr(const void *s, int c, size_t n)
-{
-	size_t i;
-
-	i = 0;
-	while (i++ < n)
-		if (((unsigned char *)s)[i - 1] == (unsigned char)c)
-			return (&((unsigned char *)s)[i - 1]);
-	return (NULL);
 }
