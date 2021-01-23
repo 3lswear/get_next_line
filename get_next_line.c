@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 05:37:12 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/22 21:53:14 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/24 00:12:55 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ int		get_next_line(int fd, char **line)
 	int			res;
 
 	ret = 0;
-	if (!line || (BUFFER_SIZE <= 0) || (res = check_buf(&(substring
-		[ft_strlen(substring) + 1]), line)) == -1 || fd < 0)
+	if (fd < 0 || !line || (BUFFER_SIZE <= 0) || (res = check_buf(&(substring
+		[ft_strlen(substring) + 1]), line)) == -1)
 		return (-1);
 	while (res == 0 && (ret = read(fd, substring, BUFFER_SIZE)) > 0)
 	{
