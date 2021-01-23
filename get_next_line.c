@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 05:37:12 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/24 00:12:55 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/24 00:19:17 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,9 @@ int		check_buf(char *substring, char **line)
 	}
 	else //no newline in substring
 	{
-		*line = ft_strdup(substring);
-		ft_bzero(substring, ft_strlen(substring) + 1);
-		if (!(*line))
+		if (!(*line = ft_strdup(substring)))
 			return (-1);
+		ft_bzero(substring, ft_strlen(substring) + 1);
 		return (0); // no newline in substring, or no substring at all
 	}
 }
