@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 05:37:12 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/24 00:19:17 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/24 00:45:38 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,29 +78,32 @@ int		copy_line(char *substring, char **line)
 	return (res);
 }
 
+/* printf("\033[0;31m[%s]:%lu\n\033[0m", substring, ft_strlen(substring)); */
 int		get_next_line(int fd, char **line)
 {
 	static char	substring[BUFFER_SIZE + 1];
 	ssize_t		ret;
 	int			res;
+	char		*tmp;
 
-	ret = 0;
-	if (fd < 0 || !line || (BUFFER_SIZE <= 0) || (res = check_buf(&(substring
+	tmp = *line;
+	if (fd < 0 || (BUFFER_SIZE <= 0) || (res = check_buf(&(substring
 		[ft_strlen(substring) + 1]), line)) == -1)
 		return (-1);
 	while (res == 0 && (ret = read(fd, substring, BUFFER_SIZE)) > 0)
 	{
 		substring[ret] = 0;
-		/* printf("\033[0;31m[%s]:%lu\n\033[0m", substring, ft_strlen(substring)); */
 		if ((res = copy_line(substring, line)) == -1)
 			return (-1);
 	}
 	if (res == 0 && ret == 0)
-	{
 		return (0);
-	}
 	else if (ret == -1)
+	{
+		free(*line);
+		*line = tmp;
 		return (-1);
+	}
 	else
 		return (1);
 }
