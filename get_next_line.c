@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 05:37:12 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/24 13:46:57 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/24 13:58:10 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		check_buf(char *substring, char **line, ssize_t *ret, char **tmp)
 	*ret = 0;
 	if (line)
 		*tmp = *line;
-	else 
+	else
 		return (-1);
 	if ((point = ft_strchr_bd(substring, '\n', 0))) //found a newline
 	{
