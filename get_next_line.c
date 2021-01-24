@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 05:37:12 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/24 00:45:38 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/24 12:43:44 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,11 @@ size_t	ft_strlen(const char *str)
 	return (count);
 }
 
-int		check_buf(char *substring, char **line)
+int		check_buf(char *substring, char **line, ssize_t *ret)
 {
 	char *point;
 
+	*ret = 0;
 	if ((point = ft_strchr_bd(substring, '\n', 0))) //found a newline
 	{
 		*point++ = 0;
@@ -88,7 +89,7 @@ int		get_next_line(int fd, char **line)
 
 	tmp = *line;
 	if (fd < 0 || (BUFFER_SIZE <= 0) || (res = check_buf(&(substring
-		[ft_strlen(substring) + 1]), line)) == -1)
+		[ft_strlen(substring) + 1]), line, &ret)) == -1)
 		return (-1);
 	while (res == 0 && (ret = read(fd, substring, BUFFER_SIZE)) > 0)
 	{
