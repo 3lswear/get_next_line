@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "get_next_line.h"
+# include <fcntl.h>
 
 int check(int res)
 {
@@ -32,9 +33,9 @@ int main()
 	/* fd = open("./texts/among.txt", O_RDONLY); */
 	/* fd = open("./texts/null.txt", O_RDONLY); */
 	/* fd = open("./texts/test_file9", O_RDONLY); */
-	/* fd = open("./texts/no_newline.txt", O_RDONLY); */
+	fd = open("./texts/no_newline.txt", O_RDONLY);
 	/* fd = open("/media/linux_data/data/work/2_ecole/tests/1_gnl/gnlTester/gnlTester/files/big_line_no_nl", O_RDONLY); */
-	fd = open("/media/linux_data/data/work/2_ecole/tests/1_gnl/gnlTester/gnlTester/files/big_line_with_nl", O_RDONLY);
+	/* fd = open("/media/linux_data/data/work/2_ecole/tests/1_gnl/gnlTester/gnlTester/files/big_line_with_nl", O_RDONLY); */
 	/* fd = 1000; */
 	/* fd = -1; */
 
