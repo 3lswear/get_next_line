@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 05:37:12 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/24 13:58:10 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/26 06:36:04 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,20 @@ int		check_buf(char *substring, char **line, ssize_t *ret, char **tmp)
 		*tmp = *line;
 	else
 		return (-1);
-	if ((point = ft_strchr_bd(substring, '\n', 0))) //found a newline
+	if ((point = ft_strchr_bd(substring, '\n', 0)))
 	{
 		*point++ = 0;
 		if (!(*line = ft_strdup(substring)))
 			return (-1);
 		ft_strlcpy(substring, point, ft_strlen(point) + 1);
-		return (1); //copied a line to *line
+		return (1);
 	}
-	else //no newline in substring
+	else
 	{
 		if (!(*line = ft_strdup(substring)))
 			return (-1);
 		ft_bzero(substring, ft_strlen(substring) + 1);
-		return (0); // no newline in substring, or no substring at all
+		return (0);
 	}
 }
 
@@ -71,7 +71,7 @@ int		copy_line(char *substring, char **line)
 	int		res;
 
 	res = 0;
-	if ((point = ft_strchr_bd(substring, '\n', 0))) //found a newline
+	if ((point = ft_strchr_bd(substring, '\n', 0)))
 	{
 		*point++ = 0;
 		res = 1;
@@ -83,7 +83,6 @@ int		copy_line(char *substring, char **line)
 	return (res);
 }
 
-/* printf("\033[0;31m[%s]:%lu\n\033[0m", substring, ft_strlen(substring)); */
 int		get_next_line(int fd, char **line)
 {
 	static char	substring[BUFFER_SIZE + 1];
