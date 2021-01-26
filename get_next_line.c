@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 05:37:12 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/26 15:07:52 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/01/26 15:16:31 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int		get_next_line(int fd, char **line)
 	{
 		free(*line);
 		*line = tmp;
+		ft_bzero(substring, BUFFER_SIZE);
 		return (-1);
 	}
 	else if (res == 1)
