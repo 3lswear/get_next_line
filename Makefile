@@ -6,7 +6,7 @@
 #    By: sunderle <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/09 20:03:30 by sunderle          #+#    #+#              #
-#    Updated: 2021/01/21 00:52:53 by sunderle         ###   ########.fr        #
+#    Updated: 2021/01/26 06:38:57 by sunderle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,12 @@ NAME = gnltest
 # CC = gcc
 CC = clang
 
-CFLAGS = -Wall -Wextra -Werror
+DECLARE_BUFSIZE = -D BUFFER_SIZE=35
+
+CFLAGS = -Wall -Wextra -Werror 
 CFLAGS += -g
 LDFLAGS += -g
+
 
 
 SRC = $(wildcard *.c)
