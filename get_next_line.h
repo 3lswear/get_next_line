@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 02:55:03 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/26 06:34:52 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/17 02:30:00 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 # ifndef BUFFER_SIZE
 
-#  define BUFFER_SIZE 32
+#  define BUFFER_SIZE 80
 
 # endif
 
