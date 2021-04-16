@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 05:37:12 by sunderle          #+#    #+#             */
-/*   Updated: 2021/01/26 15:16:31 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/17 02:29:01 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	char *dest;
+	char	*dest;
 
 	if (n)
 		dest = s;
@@ -27,7 +27,7 @@ void	ft_bzero(void *s, size_t n)
 
 size_t	ft_strlen(const char *str)
 {
-	size_t count;
+	size_t	count;
 
 	count = 0;
 	while (*str != '\0')
@@ -38,52 +38,57 @@ size_t	ft_strlen(const char *str)
 	return (count);
 }
 
-int		check_buf(char *substring, char **line, ssize_t *ret, char **tmp)
+int	check_buf(char *substring, char **line, ssize_t *ret, char **tmp)
 {
-	char *point;
+	char	*point;
 
 	*ret = 0;
 	if (line)
 		*tmp = *line;
 	else
 		return (-1);
-	if ((point = ft_strchr_bd(substring, '\n', 0)))
+	point = ft_strchr_bd(substring, '\n', 0);
+	if (point)
 	{
 		*point++ = 0;
-		if (!(*line = ft_strdup(substring)))
+		*line = ft_strdup(substring);
+		if (!line)
 			return (-1);
 		ft_strlcpy(substring, point, ft_strlen(point) + 1);
 		return (1);
 	}
 	else
 	{
-		if (!(*line = ft_strdup(substring)))
+		*line = ft_strdup(substring);
+		if (!line)
 			return (-1);
 		ft_bzero(substring, ft_strlen(substring) + 1);
 		return (0);
 	}
 }
 
-int		copy_line(char *substring, char **line)
+int	copy_line(char *substring, char **line)
 {
 	char	*point;
 	char	*tmp;
 	int		res;
 
 	res = 0;
-	if ((point = ft_strchr_bd(substring, '\n', 0)))
+	point = ft_strchr_bd(substring, '\n', 0);
+	if (point)
 	{
 		*point++ = 0;
 		res = 1;
 	}
 	tmp = *line;
-	if (!(*line = ft_strjoin(*line, substring)))
+	*line = ft_strjoin(*line, substring);
+	if (!line)
 		return (-1);
 	free(tmp);
 	return (res);
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char	substring[BUFFER_SIZE + 1];
 	ssize_t		ret;
@@ -91,7 +96,7 @@ int		get_next_line(int fd, char **line)
 	char		*tmp;
 
 	if (fd < 0 || (BUFFER_SIZE <= 0) || (res = check_buf(&(substring
-		[ft_strlen(substring) + 1]), line, &ret, &tmp)) == -1)
+					[ft_strlen(substring) + 1]), line, &ret, &tmp)) == -1)
 		return (-1);
 	while (res == 0 && (ret = read(fd, substring, BUFFER_SIZE)) > 0)
 	{
